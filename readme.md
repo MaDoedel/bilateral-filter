@@ -103,6 +103,3 @@ The bilateral filter was applied to the noisy image with various parameter sets 
 - Ensure your image file (`test.jpeg`) exists in the working directory.
 - Adjust parameters as needed to get the best results for your specific image.
 
-## License
-
-This project is licensed under the MIT License.
