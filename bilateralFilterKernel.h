@@ -5,8 +5,8 @@
 #include <cuda_runtime.h>
 
 __global__ void bilateralFilterKernel(
-    const unsigned char* input, 
-    unsigned char* output, 
+    const float* input, 
+    float* output, 
     int width, 
     int height, 
     int kernel_size, 
