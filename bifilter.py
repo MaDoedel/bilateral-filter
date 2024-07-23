@@ -35,8 +35,8 @@ def Wp(img_gray, n, i, j, G_s, G_r):
             for j_n in range(-half_n, half_n + 1):
                 nj = j + j_n
                 if 0 <= nj < img_gray.shape[1]:
-                    spatial_distance = np.sqrt(i_n ** 2 + j_n ** 2)
-                    photometric_distance = int(img_gray[ni, nj]) - int(img_gray[i, j])
+                    spatial_distance = np.sqrt((ni - i)**2 + (nj -j)**2) # isnt this just abs
+                    photometric_distance = np.sqrt((int(img_gray[ni, nj]) - int(img_gray[i, j]))**2)
 
                     g1 = gaussian(spatial_distance, G_s)
                     g2 = gaussian(photometric_distance, G_r)
@@ -61,8 +61,8 @@ def bilateralFilter(img_gray, n, i, j, G_s, G_r):
             for j_s in range(-half_n, half_n + 1):
                 sj = j + j_s
                 if 0 <= sj < img_gray.shape[1]:
-                    spatial_distance = np.sqrt(i_s ** 2 + j_s ** 2)
-                    photometric_distance = int(img_gray[si, sj]) - int(img_gray[i, j])
+                    spatial_distance = np.sqrt((si - i)**2 + (sj -j)**2) # isnt this just abs
+                    photometric_distance = np.sqrt((int(img_gray[si, sj]) - int(img_gray[i, j]))**2)
 
                     g1 = gaussian(spatial_distance, G_s)
                     g2 = gaussian(photometric_distance, G_r)

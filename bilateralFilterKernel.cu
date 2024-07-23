@@ -28,10 +28,10 @@ __global__ void bilateralFilterKernel(
 
                 float neighbor_intensity = input[ny * width + nx]; // also here
 
-                float spatial_dist = sqrtf(powf(kx - x, 2) + powf(ky -y, 2)); // this is not a guassian function
-                float spatial_dist_gf = expf(-(powf(spatial_dist,2)/(2*powf(sigma_s,2))));
-                float intensity_dist = sqrtf(powf(neighbor_intensity - center_intensity, 2));
-                float intensity_dist_gf = expf(-(powf(intensity_dist,2)/(2*powf(sigma_r,2))));
+                float spatial_dist = std::sqrt(static_cast<float>((kx) * (kx) + (ky) * (ky)));
+                float spatial_dist_gf = std::exp(-(spatial_dist * spatial_dist) / (2 * sigma_s * sigma_s));
+                float intensity_dist = std::sqrt(static_cast<float>((neighbor_intensity - center_intensity) * (neighbor_intensity - center_intensity)));
+                float intensity_dist_gf = std::exp(-(intensity_dist * intensity_dist) / (2 * sigma_r * sigma_r));
 
                 sum_weights += spatial_dist_gf * intensity_dist_gf;
             }
@@ -48,10 +48,10 @@ __global__ void bilateralFilterKernel(
 
                 float neighbor_intensity = input[ny * width + nx]; // also here
 
-                float spatial_dist = sqrtf(powf(kx - x, 2) + powf(ky -y, 2));
-                float spatial_dist_gf = expf(-(powf(spatial_dist,2)/(2*powf(sigma_s,2))));
-                float intensity_dist = sqrtf(powf(neighbor_intensity - center_intensity, 2));
-                float intensity_dist_gf = expf(-(powf(intensity_dist,2)/(2*powf(sigma_r,2))));
+                float spatial_dist = std::sqrt(static_cast<float>((kx) * (kx) + (ky) * (ky)));
+                float spatial_dist_gf = std::exp(-(spatial_dist * spatial_dist) / (2 * sigma_s * sigma_s));
+                float intensity_dist = std::sqrt(static_cast<float>((neighbor_intensity - center_intensity) * (neighbor_intensity - center_intensity)));
+                float intensity_dist_gf = std::exp(-(intensity_dist * intensity_dist) / (2 * sigma_r * sigma_r));
 
                 norm_factor += spatial_dist_gf * intensity_dist_gf * neighbor_intensity;
             }
